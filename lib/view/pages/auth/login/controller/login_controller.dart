@@ -62,29 +62,11 @@ class LoginController extends BaseController {
       Get.find<AuthHolder>().name=userData.data()!['username'];
       Get.find<AuthHolder>().email=userData.data()!['email'];
        Get.find<AuthHolder>().photoUrl=userData.data()?['image_url']??'';
-
-      // Get.find<AuthHolder>().authToken=userCredentials.credential!.accessToken??'';
       Get.offAllNamed('/');
-
       print('USER::::$userCredentials');
     }on FirebaseAuthException catch(error){
       Get.snackbar(Strings.appName.tr, error.code);
     }
 
-    // Get.find<AuthHolder>().name=content.data?.name??'';
-    // Get.find<AuthHolder>().phone=content.data?.phone??'';
-    // Get.find<AuthHolder>().photoUrl=content.data?.photo?.url??"";
-    // Get.find<AuthHolder>().userId=content.data?.id??'';
-    // Get.find<AuthHolder>().roleList=content.data?.roles??[];
-    // Get.find<AuthHolder>().notificationValue=content.data?.notification??true;
-    // Get.find<AuthHolder>().supportChatId=
-    // !Get.find<AuthHolder>().roleList.contains(RoleList.ROLE_ADMIN.name)?Get.find<AuthHolder>().userId:"";
-    // Get.find<HomeController>().onRefresh();
-    // if(content.data!=null){
-    //   bool isAdmin=content.data!.roles!.contains(RoleList.ROLE_ADMIN.name);
-    //   Get.find<ApplicationController>().setIsAdmin(isAdmin);
-    //   Get.find<ApplicationController>().setPageIndex(0);
-    // }
-    // Get.offAllNamed('/');
   }
 }

@@ -56,7 +56,7 @@ class AuthPrefs extends AuthHolder {
   @override
   set notificationValue(bool notificationValue) => authBox.put(notificationValueId, notificationValue);
   @override
-  bool get isLoggedIn => authBox.get(isLoggedInId, defaultValue: true);
+  bool get isLoggedIn => authBox.get(isLoggedInId, defaultValue: false);
 
   @override
   set isLoggedIn(bool isLoggedIn) => authBox.put(isLoggedInId, isLoggedIn);
