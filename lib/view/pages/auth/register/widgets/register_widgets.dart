@@ -106,7 +106,7 @@ Widget registerEmailTextField(RegisterController controller, BuildContext contex
         controller.checkIsAllSelected();
       },
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.email),
+          prefixIcon: Icon(Icons.email_outlined),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.r),
             borderSide: BorderSide(

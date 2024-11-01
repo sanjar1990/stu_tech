@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:stu_tech/view/pages/application/controller/application_controller.dart';
 import '../../../../../data/tools/file_importer.dart';
 
 class RegisterController extends BaseController{
   bool isLoading = false;
   bool isObscured = true;
   bool isObscured2 = true;
+  bool isTeacherSelected=false;
+  bool isStudentSelected=false;
   final _firebase=FirebaseAuth.instance;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -86,11 +89,7 @@ class RegisterController extends BaseController{
     }
     try{
     final userCredentials=await  _firebase.createUserWithEmailAndPassword(email: email, password: password);
-      Get.find<AuthHolder>().isLoggedIn=true;
-      Get.find<AuthHolder>().name=name;
-      Get.find<AuthHolder>().email=email;
-      Get.find<AuthHolder>().role=selectedRole;
-    Get.find<AuthHolder>().userId=userCredentials.user!.uid;
+
     FirebaseFirestore.instance.collection('users').doc(userCredentials.user!.uid)
         .set(
         selectedRole=='TEACHER'?{
@@ -109,6 +108,13 @@ class RegisterController extends BaseController{
           'role':selectedRole,
         }
     );
+    Get.find<AuthHolder>().isLoggedIn=true;
+    Get.find<AuthHolder>().name=name;
+    Get.find<AuthHolder>().email=email;
+    Get.find<AuthHolder>().role=selectedRole;
+    Get.find<AuthHolder>().userId=userCredentials.user!.uid;
+    Get.find<ApplicationController>().isTeacher=selectedRole=='TEACHER';
+
     Get.offAllNamed('/');
     }on FirebaseAuthException catch(error){
       Get.snackbar(Strings.appName.tr, error.code);

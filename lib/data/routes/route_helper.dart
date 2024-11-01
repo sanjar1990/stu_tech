@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 import 'package:stu_tech/view/pages/application/application_page.dart';
+import 'package:stu_tech/view/pages/auth/register/register_page.dart';
 import 'package:stu_tech/view/pages/completed_detail/completed_detail_page.dart';
 import 'package:stu_tech/view/pages/create_post/create_post.dart';
 import 'package:stu_tech/view/pages/create_post/widgets/file_upload.dart';
 import 'package:stu_tech/view/pages/profile_options/edit_profile/edit_profile_fields_page.dart';
+import 'package:stu_tech/view/pages/start/onboarding/onboarding_page.dart';
+import 'package:stu_tech/view/pages/start/onboarding/select_role_page.dart';
 import 'package:stu_tech/view/pages/start/splash/splash_page.dart';
 import 'package:stu_tech/view/pages/teacher/teacher_home/completed_task_info.dart';
 import 'package:stu_tech/view/pages/teacher/teacher_home/teacher_home_page.dart';
@@ -24,6 +27,8 @@ class RouteHelper {
   static const String completedDetail = '/completed_detail';
   static const String completedTaskInfo = '/completed_task_info';
   static const String editProfile = '/edit_profile';
+  static const String onboarding = '/onboarding';
+  static const String selectRole = '/select_role';
 
 
 
@@ -38,6 +43,8 @@ class RouteHelper {
   static String getCompletedDetail() => completedDetail;
   static String getCompletedTaskInfo() => completedTaskInfo;
   static String getEditProfile() => editProfile;
+  static String getOnboarding() => onboarding;
+  static String getSelectRole() => selectRole;
 
 
 
@@ -49,6 +56,10 @@ class RouteHelper {
     GetPage(
         name: signIn,
         page: () =>  const LoginPage(),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: signUp,
+        page: () =>  const RegisterPage(),
         transition: Transition.fadeIn),
 
     GetPage(
@@ -74,6 +85,14 @@ class RouteHelper {
     GetPage(
       name: editProfile,
       page: () => const EditProfileFieldsPage(),
+    ),
+    GetPage(
+      name: onboarding,
+      page: () => const OnboardingPage(),
+    ),
+    GetPage(
+      name: selectRole,
+      page: () => const SelectRolePage(),
     ),
   ];
 }

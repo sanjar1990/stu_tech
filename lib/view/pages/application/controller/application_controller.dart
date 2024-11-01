@@ -8,19 +8,19 @@ import '../../profile_options/profile/profile_page.dart';
 
 class ApplicationController extends BaseController {
   bool isLoading = false;
-  bool isTeacher = false;
+  bool isTeacher = Get.find<AuthHolder>().role=='TEACHER';
   int _pageIndex = 0;
   int get pageIndex => _pageIndex;
 
   @override
   void onInit() {
     super.onInit();
-    final String role = Get.find<AuthHolder>().role;
-    if (role == 'TEACHER') {
-      isTeacher = true;
-    } else {
-      isTeacher = false;
-    }
+    // final String role = Get.find<AuthHolder>().role;
+    // if (role == 'TEACHER') {
+    //   isTeacher = true;
+    // } else {
+    //   isTeacher = false;
+    // }
     _pageIndex = 0;
     buildPage();
   }

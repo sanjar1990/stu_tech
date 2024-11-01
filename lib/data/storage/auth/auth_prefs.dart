@@ -68,6 +68,13 @@ class AuthPrefs extends AuthHolder {
 
   @override
   set isLoggedIn(bool isLoggedIn) => authBox.put(isLoggedInId, isLoggedIn);
+
+  @override
+  bool get isOnboarding => authBox.get(isOnboardingID, defaultValue: false);
+
+  @override
+  set isOnboarding(bool isOnboarding) => authBox.put(isOnboardingID, isOnboarding);
+
   @override
   String get role => authBox.get(roleId, defaultValue: '');
 
@@ -95,5 +102,6 @@ class AuthPrefs extends AuthHolder {
   static const profileId = 'userId';
   static const notificationValueId = 'notificationValue';
   static const isLoggedInId = 'isLoggedIn';
+  static const isOnboardingID = 'isOnboarding';
   static const fcmTokenId = 'fcmToken';
 }

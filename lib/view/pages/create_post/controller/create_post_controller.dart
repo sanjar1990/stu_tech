@@ -140,6 +140,7 @@ class CreatePostController extends BaseController {
 
       selectedFiles.clear();
       Get.snackbar(Strings.appName.tr, 'All files are uploaded');
+      fileTitle='All files are uploaded';
      update();
       Get.back();
     } catch (e) {
@@ -187,7 +188,6 @@ class CreatePostController extends BaseController {
     }
     try {
       for (var entry in selectedFiles.entries) {
-        print('forrrr');
         final storageRef = FirebaseStorage.instance
             .ref()
             .child('answer_files')
@@ -204,10 +204,11 @@ class CreatePostController extends BaseController {
 
       selectedFiles.clear();
       Get.snackbar(Strings.appName.tr, 'All files are uploaded');
+      fileTitle='All files are uploaded';
+
       update();
       // Get.find<ApplicationController>().setPageIndex(1);
      Get.offNamed('/post_detail');
-      print('FINISHEDDDDDD2222222');
 
     } catch (e) {
       print('Error uploading files: $e');
@@ -248,13 +249,13 @@ class CreatePostController extends BaseController {
 
         String fileUrl = await storageRef.getDownloadURL();
         print('FILE URL:::: $fileUrl');
-        Get.find<CompletedDetailController>().task['task_files'][entry.key]=fileUrl;
+        Get.find<CompletedDetailController>().completedTask['task_files'][entry.key]=fileUrl;
       }
-
+      Get.find<CompletedDetailController>().update();
       selectedFiles.clear();
       Get.snackbar(Strings.appName.tr, 'All files are uploaded');
+      fileTitle='All files are uploaded';
       update();
-      // Get.find<ApplicationController>().setPageIndex(1);
       Get.back();
 
     } catch (e) {

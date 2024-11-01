@@ -38,7 +38,7 @@ class RegisterPage extends StatelessWidget {
                               fontFamily: 'Roboto'),
                         ),
                       ),
-                      selectRole(controller,MediaQuery.of(context).size.width - 60,),
+                      // selectRole(controller,MediaQuery.of(context).size.width - 60,),
                       SizedBox(height: 20.h),
                       SizedBox(
                         width: size.width - 60,
@@ -79,6 +79,14 @@ class RegisterPage extends StatelessWidget {
                       passwordTextField(controller, context),
                       SizedBox(height: 12.h),
                       confirmPasswordTextField(controller, context),
+                      Container(
+                        margin: EdgeInsets.only(left: 140),
+                        alignment: Alignment.center,
+                        width: double.maxFinite,
+                        child: TextButton(onPressed: (){
+                          Get.toNamed('/sign_in');
+                        }, child: Text('Go to login >>', style: TextStyle(fontSize: 18),)),
+                      ),
                       SizedBox(height: 114.h),
                       customButton(
                         isLoading: controller.isLoading,

@@ -5,7 +5,6 @@ import 'package:stu_tech/data/tools/file_importer.dart';
 
 class LoginController extends BaseController {
   final _firebase=FirebaseAuth.instance;
-
   bool isLoading = false;
   bool isObscured = true;
   bool emptyEmail = false;

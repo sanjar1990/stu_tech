@@ -17,6 +17,7 @@ abstract class AuthHolder {
   late String fcmToken;
   late bool notificationValue;
   late bool isLoggedIn;
+  late bool isOnboarding;
   late String role;
   late String supportChatId;
 

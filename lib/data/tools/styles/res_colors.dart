@@ -21,7 +21,9 @@ class ResColors {
   /// main widget color blue
   // static const Color primaryElement = Color.fromARGB(255, 61, 61, 216);
   static  Color primaryElement = Get.find<ApplicationController>().isTeacher? Color(0xff769A14):Color(0xff0D75D6);
-  static const Color primaryElementLight = Color(0x70AEC2D1);
+  static  Color primaryElementLight = Get.find<ApplicationController>().isTeacher? Color(
+      0xffd0ef7d):Color(
+      0xff6190c0);
   static const Color backgroundColor = Color(0xffF7F8F9);
 
   /// main text color black

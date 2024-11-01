@@ -53,8 +53,14 @@ class _CompletedDetailPageState extends State<CompletedDetailPage> {
   }
   void update(Map<String, dynamic> task)async{
     CompletedDetailController controller=Get.find<CompletedDetailController>();
-    controller.isUpdateCompletedTask=true;
-    controller.update();
+    if(controller.completedTask['check_status']=='Unchecked'){
+      controller.isUpdateCompletedTask=true;
+      controller.updateDescription=controller.completedTask['description'];
+      controller.update();
+    }else{
+      Get.snackbar(Strings.appName.tr, 'You can not update your Task');
+    }
+
   }
 
   @override
@@ -78,7 +84,6 @@ class _CompletedDetailPageState extends State<CompletedDetailPage> {
                   child: Container(
                     width: 30.w,
                     height: 30.h,
-
                     margin: EdgeInsets.only(top: 4.w, right: 4.w),
                     child: Container(
                       width: 30.w,
@@ -219,6 +224,9 @@ class _CompletedDetailPageState extends State<CompletedDetailPage> {
                           !controller.isUpdateCompletedTask? Column(
                           children: [
                             Divider(thickness: 2, indent: 3,endIndent: 3, color: ResColors.borderColor,),
+                            getText(
+                                title: 'Check Status',
+                                content: controller.completedTask['check_status']),
                             getText(
                                 title: 'My Description',
                                 content: controller.completedTask['description']),
@@ -388,8 +396,10 @@ class _CompletedDetailPageState extends State<CompletedDetailPage> {
                                                           width: 40,
                                                           height:40,
                                                           child: Icon(Icons.delete_outline,size: 25,)), onPressed: () {
-                                                    controller.completedTask.remove('task_files');
-                                                    controller.update();
+
+                                                        Map<String, dynamic> files= controller.completedTask['task_files'];
+                                                        files.remove(controller.completedTask['task_files'].keys.elementAt(index));
+                                                      controller.update();
                                                     } ,)),
                                               ],
                                             );
@@ -408,9 +418,9 @@ class _CompletedDetailPageState extends State<CompletedDetailPage> {
                                   ? () {}
                                   : () async {
                                 if (controller.isLoading) {
+
                                 } else {
-
-
+                    controller.updateAnswer();
                                 }
                               },
                             ),

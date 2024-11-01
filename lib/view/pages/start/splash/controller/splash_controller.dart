@@ -17,7 +17,7 @@ class SplashController extends BaseController{
        if(Get.find<AuthHolder>().isLoggedIn){
          Get.toNamed('/home');
        }else{
-         Get.toNamed('/sign_in');
+         Get.toNamed('/onboarding');
        }
      });
   }
