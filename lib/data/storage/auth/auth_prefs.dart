@@ -27,10 +27,23 @@ class AuthPrefs extends AuthHolder {
   set name(String name) => authBox.put(nameId, name);
 
   @override
-  String get phone => authBox.get(phoneId, defaultValue: '');
+  String get surname => authBox.get(surnameId, defaultValue: '');
 
   @override
-  set phone(String name) => authBox.put(phoneId, name);
+  set surname(String surname) => authBox.put(surnameId, surname);
+
+  @override
+  String get universityName => authBox.get(universityNameId, defaultValue: '');
+
+  @override
+  set universityName(String universityName) => authBox.put(universityNameId, universityName);
+
+  @override
+  String get workExperience => authBox.get(workExperienceId, defaultValue: '');
+
+  @override
+  set workExperience(String workExperience) => authBox.put(workExperienceId, workExperience);
+
 
   @override
   String get userId => authBox.get(profileId, defaultValue: '');
@@ -38,11 +51,6 @@ class AuthPrefs extends AuthHolder {
   @override
   set userId(String name) => authBox.put(profileId, name);
 
-  @override
-  String get supportChatId => authBox.get(chatId, defaultValue: '');
-
-  @override
-  set supportChatId(String name) => authBox.put(chatId, name);
 
   @override
   String get fcmToken => authBox.get(fcmTokenId, defaultValue: '');
@@ -81,9 +89,10 @@ class AuthPrefs extends AuthHolder {
   static const authTokenId = 'authToken';
   static const photoUrlId = 'photoUrl';
   static const nameId = 'name';
-  static const phoneId = 'phone';
+  static const surnameId = 'surname';
+  static const universityNameId = 'universityName';
+  static const workExperienceId = 'workExperience';
   static const profileId = 'userId';
-  static const chatId = 'supportChatId';
   static const notificationValueId = 'notificationValue';
   static const isLoggedInId = 'isLoggedIn';
   static const fcmTokenId = 'fcmToken';

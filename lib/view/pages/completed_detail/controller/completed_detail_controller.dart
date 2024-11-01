@@ -10,6 +10,9 @@ class CompletedDetailController extends BaseController{
   bool isLoading=false;
   Map<String,dynamic>task={};
   Map<String,dynamic>completedTask={};
+  Map<String,dynamic>updatedFiles={};
+  bool isUpdateCompletedTask=false;
+  String updateDescription='';
   String taskId='';
   Future<void>setTask(Map<String,dynamic> task)async{
     completedTask=task;

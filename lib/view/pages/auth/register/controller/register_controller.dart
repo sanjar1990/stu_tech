@@ -87,17 +87,28 @@ class RegisterController extends BaseController{
     try{
     final userCredentials=await  _firebase.createUserWithEmailAndPassword(email: email, password: password);
       Get.find<AuthHolder>().isLoggedIn=true;
-      Get.find<AuthHolder>().role=selectedRole;
       Get.find<AuthHolder>().name=name;
       Get.find<AuthHolder>().email=email;
       Get.find<AuthHolder>().role=selectedRole;
     Get.find<AuthHolder>().userId=userCredentials.user!.uid;
     FirebaseFirestore.instance.collection('users').doc(userCredentials.user!.uid)
-        .set({
+        .set(
+        selectedRole=='TEACHER'?{
       'username':name,
+      'surname':'',
+      'university_name':'',
+      'work_experience':'',
       'email':email,
       'role':selectedRole,
-    });
+    }
+    :{
+          'username':name,
+          'surname':'',
+          'university_name':'',
+          'email':email,
+          'role':selectedRole,
+        }
+    );
     Get.offAllNamed('/');
     }on FirebaseAuthException catch(error){
       Get.snackbar(Strings.appName.tr, error.code);

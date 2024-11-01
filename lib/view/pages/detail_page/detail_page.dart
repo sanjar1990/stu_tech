@@ -1,9 +1,11 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stu_tech/data/tools/styles/res_colors.dart';
 import 'package:stu_tech/view/pages/application/controller/application_controller.dart';
-import 'package:stu_tech/view/pages/create_post/widgets/file_upload.dart';
 import 'package:stu_tech/view/pages/detail_page/widgets/detail_page_widgets.dart';
 import 'package:stu_tech/view/widgets/custom_widgets.dart';
 import 'package:stu_tech/view/widgets/file_upload/title_list.dart';
@@ -20,6 +22,39 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  void delete(BuildContext context, String id) {
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: ResColors.primaryElement,
+      content: Column(
+        children: [
+          Text("Do you want to delete?"),
+          Row(children: [
+            TextButton(onPressed: (){
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              FirebaseFirestore.instance.collection('tasks').doc(id).delete();
+              Get.back();
+            }, child: Text('YES', style: TextStyle(
+                color: Colors.white
+            ),)),
+            TextButton(onPressed: (){
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            }, child: Text('Cancel',style: TextStyle(
+                color: Colors.white
+            ),))
+          ],)
+        ],
+      ),
+      duration: const Duration(seconds: 4),
+
+    ));
+  }
+  void update(Map<String, dynamic> task)async{
+    CreatePostController controller=Get.find<CreatePostController>();
+    await controller.setIsUpdate(task);
+    // Get.find<ApplicationController>().setPageIndex(1);
+    Get.toNamed('/create_post');
+  }
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -32,7 +67,102 @@ class _DetailPageState extends State<DetailPage> {
         builder: (controller) {
           return Scaffold(
             backgroundColor: ResColors.backgroundColor,
-            appBar: customAppBar(controller.task['title']),
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: ResColors.backgroundColor,
+              foregroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              actions: [
+                Get.find<ApplicationController>().isTeacher?
+                Padding(
+                  padding: EdgeInsets.only(top: 7.h, right: 15.w, bottom: 15.h),
+                  child:    PopupMenuButton(
+                    // constraints: BoxConstraints.expand(width: 110.w, height: 110.h),
+                    child: Container(
+                      width: 30.w,
+                      height: 30.h,
+
+                      margin: EdgeInsets.only(top: 4.w, right: 4.w),
+                      child: Container(
+                        width: 30.w,
+                        height: 30.h,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                              AssetImage('assets/icons/three_dot.png'),
+                            )),
+                      ),
+                    ),
+                    onSelected: (value) async {
+                      if (value == "update") {
+                        update(controller.task);
+                      } else if (value == "delete") {
+                        delete(context, controller.task['task_id']);
+                      }
+                    },
+                    itemBuilder: (BuildContext context) =>
+                    <PopupMenuEntry>[
+                      PopupMenuItem(
+                        value: "update",
+                        child: Row(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4.0),
+                              child: Icon(Icons.edit, size: 20),
+                            ),
+                            Text(
+                              Strings.updatePost.tr,
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
+                          ],
+                        ),
+                      ),
+                      PopupMenuItem(
+                        value: "delete",
+                        child: Row(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4.0),
+                              child: Icon(Icons.delete_outline_outlined,
+                                  size: 20),
+                            ),
+                            Text(
+                              Strings.delete.tr,
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  // IconButton(
+                  //     onPressed: () {
+                  //
+                  //     },
+                  //     icon: Container(
+                  //       child: Image.asset('/assets/icons/three_dot.png'),
+                  //     )),
+                ):Container(),
+              ],
+              flexibleSpace: Container(
+                  width: 360.w,
+                  decoration: Platform.isIOS
+                      ? BoxDecoration(
+                      color: ResColors.primaryElement,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(24.r),
+                          bottomRight: Radius.circular(24.r)))
+                      :  BoxDecoration(color: ResColors.primaryElement),
+                  child: Center(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 40.h),
+                      child: customText(controller.task['title'],
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          textColor: ResColors.white),
+                    ),
+                  )),
+            ),
             body: controller.isLoading
                 ?  Center(
                     child: CircularProgressIndicator(

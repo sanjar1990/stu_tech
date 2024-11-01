@@ -60,10 +60,14 @@ class LoginController extends BaseController {
       Get.find<AuthHolder>().userId=userCredentials.user!.uid;
       Get.find<AuthHolder>().role=userData.data()!['role'];
       Get.find<AuthHolder>().name=userData.data()!['username'];
+      Get.find<AuthHolder>().surname=userData.data()!['surname'];
+      Get.find<AuthHolder>().universityName=userData.data()!['university_name'];
+      if(userData.data()!['role']=='TEACHER'){
+        Get.find<AuthHolder>().workExperience=userData.data()!['work_experience'];
+      }
       Get.find<AuthHolder>().email=userData.data()!['email'];
        Get.find<AuthHolder>().photoUrl=userData.data()?['image_url']??'';
       Get.offAllNamed('/');
-      print('USER::::$userCredentials');
     }on FirebaseAuthException catch(error){
       Get.snackbar(Strings.appName.tr, error.code);
     }

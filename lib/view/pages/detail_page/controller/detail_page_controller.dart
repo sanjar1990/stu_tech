@@ -37,7 +37,7 @@ Map<String,dynamic> task={};
     Get.forceAppUpdate();
     super.dispose();
   }
-  Future<void>getStudentTaskList()async{
+  Future<void>getStudentTask()async{
     try{
       final userData=await FirebaseFirestore.instance.collection(Get.find<AuthHolder>().userId).doc(task['task_id'])
           .get();

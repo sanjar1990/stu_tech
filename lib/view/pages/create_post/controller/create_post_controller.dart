@@ -12,6 +12,8 @@ import '../../../../data/tools/service/connectivity_service/connection.dart';
 import '../../../../data/tools/strings/string.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../completed_detail/controller/completed_detail_controller.dart';
+
 var uuid = Uuid();
 
 class CreatePostController extends BaseController {
@@ -24,6 +26,7 @@ class CreatePostController extends BaseController {
   String createdTime='';
   Map<String, dynamic> selectedFiles={};
   Map<String, dynamic> uploadedFiles={};
+  String fileTitle='No file selected';
   bool  titleIsEmpty=false;
   bool  descriptionIsEmpty=false;
   bool  filesEmpty=false;
@@ -184,6 +187,7 @@ class CreatePostController extends BaseController {
     }
     try {
       for (var entry in selectedFiles.entries) {
+        print('forrrr');
         final storageRef = FirebaseStorage.instance
             .ref()
             .child('answer_files')
@@ -204,6 +208,54 @@ class CreatePostController extends BaseController {
       // Get.find<ApplicationController>().setPageIndex(1);
      Get.offNamed('/post_detail');
       print('FINISHEDDDDDD2222222');
+
+    } catch (e) {
+      print('Error uploading files: $e');
+      Get.snackbar(Strings.appName.tr, e.toString());
+    } finally {
+      uploadFileLoading = false;
+      update();
+    }
+  }
+
+
+  Future<void> uploadAnswerFileUpdate() async {
+    uploadFileLoading = true;
+    update();
+
+    if (selectedFiles.isEmpty) {
+      Get.snackbar(Strings.appName.tr, 'No file is selected');
+      uploadFileLoading = false;
+      update();
+      return;
+    }
+    if (await CheckNet().checkInternet() == false) {
+      Get.snackbar(Strings.appName.tr, Strings.noInternet.tr);
+      uploadFileLoading = false;
+      update();
+      return;
+    }
+    try {
+      for (var entry in selectedFiles.entries) {
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('answer_files')
+            .child(Get.find<CompletedDetailController>().task['task_id'])
+            .child(Get.find<AuthHolder>().userId)
+            .child(entry.key);
+
+        await storageRef.putFile(entry.value);
+
+        String fileUrl = await storageRef.getDownloadURL();
+        print('FILE URL:::: $fileUrl');
+        Get.find<CompletedDetailController>().task['task_files'][entry.key]=fileUrl;
+      }
+
+      selectedFiles.clear();
+      Get.snackbar(Strings.appName.tr, 'All files are uploaded');
+      update();
+      // Get.find<ApplicationController>().setPageIndex(1);
+      Get.back();
 
     } catch (e) {
       print('Error uploading files: $e');

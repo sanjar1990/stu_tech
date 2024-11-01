@@ -82,7 +82,7 @@ backgroundColor: ResColors.primaryElement,
                             child: ListTile(
                               onTap: ()async{
                                 await   Get.find<DetailPageController>().setTask(loadedTasks[index].data());
-                                await   Get.find<DetailPageController>().getStudentTaskList();
+                                await   Get.find<DetailPageController>().getStudentTask();
                                 Get.toNamed('/post_detail');
                               },
                               leading: Get.find<ApplicationController>().isTeacher?
@@ -110,7 +110,6 @@ backgroundColor: ResColors.primaryElement,
                                   if (value == "update") {
                                     update(loadedTasks[index].data());
                                   } else if (value == "delete") {
-                                    print('IDDDDD:::${loadedTasks[index].id}');
                                     delete(context, loadedTasks[index].id);
                                   }
                                 },

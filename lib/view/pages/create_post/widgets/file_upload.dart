@@ -1,15 +1,13 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stu_tech/data/tools/file_importer.dart';
 import 'package:stu_tech/view/pages/application/controller/application_controller.dart';
 import 'package:stu_tech/view/pages/create_post/controller/create_post_controller.dart';
-import 'package:stu_tech/view/pages/detail_page/controller/detail_page_controller.dart';
 
 class FileUpload extends StatefulWidget {
-  const FileUpload({super.key});
-
+  const FileUpload({super.key, this.isUpdateAnswer=false});
+final bool isUpdateAnswer;
   @override
   State<FileUpload> createState() => _FileUploadState();
 }
@@ -33,7 +31,11 @@ class _FileUploadState extends State<FileUpload> {
     if(Get.find<ApplicationController>().isTeacher){
       await Get.find<CreatePostController>().uploadFile();
     }else{
-      await Get.find<CreatePostController>().uploadAnswerFile();
+      if(widget.isUpdateAnswer){
+        Get.find<CreatePostController>().uploadAnswerFileUpdate();
+      }else{
+        await Get.find<CreatePostController>().uploadAnswerFile();
+      }
     }
 
   }
@@ -122,7 +124,7 @@ class _FileUploadState extends State<FileUpload> {
                                   ],
                                 ))),
                       )
-                          : controller.uploadedFiles.isEmpty?Text('No file selected'):Text('All files are uploaded'),
+                          : Text(controller.fileTitle),
                     ],
                   ),
 

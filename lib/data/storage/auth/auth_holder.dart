@@ -6,6 +6,9 @@ abstract class AuthHolder {
   late String username;
   late String userId;
   late String name;
+  late String surname;
+  late String universityName;
+  late String workExperience;
   late String email;
   late String photoId;
   late String photoUrl;

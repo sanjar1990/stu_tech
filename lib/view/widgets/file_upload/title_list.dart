@@ -120,7 +120,6 @@ class _TitleListState extends State<TitleList> {
   }
   cancelDownload(){
     if(downloading){
-      print('CANCELLLLLL');
       cancelToken.cancel();
       setState(() {
         downloading=false;
