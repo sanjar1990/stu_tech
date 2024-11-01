@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:stu_tech/controller/base/base_controller.dart';
 import 'package:stu_tech/data/storage/auth/auth_holder.dart';
+import 'package:stu_tech/data/storage/onboarding_storage/onboarding_holder.dart';
 import 'package:stu_tech/view/pages/auth/login/login.dart';
 import 'package:stu_tech/view/pages/teacher/teacher_home/teacher_home_page.dart';
 
@@ -13,12 +14,18 @@ class SplashController extends BaseController{
   void onInit() {
     super.onInit();
      Timer(const Duration(seconds:3),() {
-
-       if(Get.find<AuthHolder>().isLoggedIn){
-         Get.toNamed('/home');
+       if(Get.find<OnboardingHolder>().isOnboarding){
+         if(Get.find<AuthHolder>().isLoggedIn){
+           Get.toNamed('/home');
+         }else{
+           Get.toNamed('/sign_in');
+         }
        }else{
+         Get.find<OnboardingHolder>().isOnboarding=true;
          Get.toNamed('/onboarding');
        }
+
+
      });
   }
 }

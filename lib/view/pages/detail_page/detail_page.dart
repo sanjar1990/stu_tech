@@ -206,7 +206,7 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: 10, bottom: 10),
-                                  height: (30 * controller.task.length)
+                                  height: (40 * controller.task.length)
                                           .toDouble(),
                                   width: double.maxFinite,
                                   child: ListView.builder(

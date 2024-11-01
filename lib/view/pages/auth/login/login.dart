@@ -1,5 +1,6 @@
 import 'package:stu_tech/data/tools/file_importer.dart';
 import 'package:stu_tech/view/pages/auth/register/register_page.dart';
+import 'package:stu_tech/view/pages/start/onboarding/select_role_page.dart';
 import 'package:stu_tech/view/widgets/custom_widgets.dart';
 class LoginPage extends StatelessWidget {
    const LoginPage({super.key});
@@ -42,7 +43,7 @@ class LoginPage extends StatelessWidget {
 
                       SizedBox(height: MediaQuery.of(context).size.height/4.2),
                       textLink(Strings.signUp.tr, (){
-                        Get.to( const RegisterPage(), transition: Transition.rightToLeftWithFade);
+                        Get.to( const SelectRolePage(), transition: Transition.rightToLeftWithFade);
                       },
                       ),
                       SizedBox(height: 12.h),

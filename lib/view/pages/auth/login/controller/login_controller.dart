@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stu_tech/data/tools/file_importer.dart';
+import 'package:stu_tech/view/pages/application/controller/application_controller.dart';
 
 
 class LoginController extends BaseController {
@@ -56,13 +57,17 @@ class LoginController extends BaseController {
       final userData=await FirebaseFirestore.instance.collection('users').doc(userCredentials.user!.uid)
      .get();
       Get.find<AuthHolder>().isLoggedIn=true;
+
       Get.find<AuthHolder>().userId=userCredentials.user!.uid;
       Get.find<AuthHolder>().role=userData.data()!['role'];
       Get.find<AuthHolder>().name=userData.data()!['username'];
       Get.find<AuthHolder>().surname=userData.data()!['surname'];
       Get.find<AuthHolder>().universityName=userData.data()!['university_name'];
       if(userData.data()!['role']=='TEACHER'){
+        Get.find<ApplicationController>().isTeacher=true;
         Get.find<AuthHolder>().workExperience=userData.data()!['work_experience'];
+      }else{
+        Get.find<ApplicationController>().isTeacher=false;
       }
       Get.find<AuthHolder>().email=userData.data()!['email'];
        Get.find<AuthHolder>().photoUrl=userData.data()?['image_url']??'';

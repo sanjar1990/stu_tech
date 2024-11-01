@@ -208,7 +208,7 @@ class CreatePostController extends BaseController {
 
       update();
       // Get.find<ApplicationController>().setPageIndex(1);
-     Get.offNamed('/post_detail');
+     Get.back();
 
     } catch (e) {
       print('Error uploading files: $e');

@@ -1,5 +1,4 @@
 
-
 abstract class AuthHolder {
   late String authToken;
   // late String role;

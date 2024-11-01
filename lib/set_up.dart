@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:stu_tech/data/storage/app/locals/lang_prefs/language_prefs.dart';
+import 'package:stu_tech/data/storage/onboarding_storage/onboarding_prefs.dart';
 import 'package:stu_tech/data/tools/cloud_messaging_service/cloud_messaging_service.dart';
 import 'adapter_register.dart';
 import 'data/storage/auth/auth_prefs.dart';
@@ -26,7 +27,8 @@ Future<void> setup() async {
   await Hive.initFlutter();
   registerAdapters();
   await Hive.openBox(AuthPrefs.authBoxID);
-  await Hive.openBox("itemsBox");
+  await Hive.openBox(OnboardingPrefs.onboardingBoxID);
+  // await Hive.openBox("itemsBox");
   // await Hive.openBox(AppHolderImp.commonId);
 
   await Hive.openBox(LangPrefs.langBox);

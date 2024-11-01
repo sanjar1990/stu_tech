@@ -1,4 +1,6 @@
 import 'package:stu_tech/data/storage/app/locals/lang_prefs/language_prefs.dart';
+import 'package:stu_tech/data/storage/onboarding_storage/onboarding_holder.dart';
+import 'package:stu_tech/data/storage/onboarding_storage/onboarding_prefs.dart';
 import 'package:stu_tech/data/tools/file_importer.dart';
 import 'package:stu_tech/view/pages/application/controller/application_controller.dart';
 import 'package:stu_tech/view/pages/auth/register/controller/register_controller.dart';
@@ -32,6 +34,8 @@ class DIService {
      Get.lazyPut<AuthInterceptor>(() => AuthInterceptor(Get.find<AuthHolder>()), fenix: true);
      Get.lazyPut<LangPrefs>(() => LangPrefs(), fenix: true);
      Get.lazyPut<AuthHolder>(() => AuthPrefs(), fenix: true);
+     Get.lazyPut<OnboardingPrefs>(() => OnboardingPrefs(), fenix: true);
+     Get.lazyPut<OnboardingHolder>(() => OnboardingPrefs(), fenix: true);
 
   }
 }

@@ -40,38 +40,38 @@ class RegisterPage extends StatelessWidget {
                       ),
                       // selectRole(controller,MediaQuery.of(context).size.width - 60,),
                       SizedBox(height: 20.h),
-                      SizedBox(
-                        width: size.width - 60,
-                        child: TextField(
-                          textCapitalization: TextCapitalization.sentences,
-                          keyboardType: TextInputType.name,
-                          style: const TextStyle(color: ResColors.textColor),
-                          controller: controller.nameController,
-                          onChanged: (value){
-                            controller.checkIsAllSelected();
-                          },
-                          decoration: InputDecoration(
-                              counterText: '',
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.r),
-                                borderSide: BorderSide(
-                                  color: (controller.emptyName)?Colors.red:ResColors.primaryGrey
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.r),
-                                borderSide: BorderSide(
-                                  color: (controller.emptyName)?Colors.red:ResColors.primaryGrey,
-                                ),
-                              ),
-                              hintText: Strings.enterName.tr,
-                              hintStyle:
-                              const TextStyle(color: Color(0xffABAFB6)),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.r),
-                              )),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   width: size.width - 60,
+                      //   child: TextField(
+                      //     textCapitalization: TextCapitalization.sentences,
+                      //     keyboardType: TextInputType.name,
+                      //     style: const TextStyle(color: ResColors.textColor),
+                      //     controller: controller.nameController,
+                      //     onChanged: (value){
+                      //       controller.checkIsAllSelected();
+                      //     },
+                      //     decoration: InputDecoration(
+                      //         counterText: '',
+                      //         enabledBorder: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(5.r),
+                      //           borderSide: BorderSide(
+                      //             color: (controller.emptyName)?Colors.red:ResColors.primaryGrey
+                      //           ),
+                      //         ),
+                      //         focusedBorder: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(5.r),
+                      //           borderSide: BorderSide(
+                      //             color: (controller.emptyName)?Colors.red:ResColors.primaryGrey,
+                      //           ),
+                      //         ),
+                      //         hintText: Strings.enterName.tr,
+                      //         hintStyle:
+                      //         const TextStyle(color: Color(0xffABAFB6)),
+                      //         border: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(4.r),
+                      //         )),
+                      //   ),
+                      // ),
 
                       SizedBox(height: 12.h),
                       registerEmailTextField(controller,context),

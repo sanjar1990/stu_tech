@@ -10,15 +10,12 @@ class RegisterController extends BaseController{
   bool isTeacherSelected=false;
   bool isStudentSelected=false;
   final _firebase=FirebaseAuth.instance;
-  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   bool isAllSelected=false;
   String signature='';
   //checking fields
-  bool emptyName = false;
   bool emptyEmail = false;
   bool passwordNotValid = false;
   bool confirmPasswordNotValid = false;
@@ -26,9 +23,8 @@ class RegisterController extends BaseController{
   String selectedRole='';
   @override
   dispose() {
-    nameController.dispose();
-    phoneNumberController.dispose();
     passwordController.dispose();
+    emailController.dispose();
     super.dispose();
   }
   void setObscure(bool obscureValue){
@@ -36,8 +32,8 @@ class RegisterController extends BaseController{
     update();
   }
   void checkIsAllSelected(){
-    if(selectedRole.isNotEmpty && nameController.text.trim().isNotEmpty
-    && emailController.text.trim().isNotEmpty && passwordController.text.trim().length>=6
+    if(selectedRole.isNotEmpty && emailController.text.trim().isNotEmpty
+        && passwordController.text.trim().length>=6
     && confirmPasswordController.text.trim().length>=6){
       isAllSelected=true;
     }else{
@@ -45,7 +41,6 @@ class RegisterController extends BaseController{
     }
   }
   Future<void> registration() async {
-    String name = nameController.text.trim();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
@@ -54,14 +49,7 @@ class RegisterController extends BaseController{
       Get.snackbar(Strings.appName.tr, Strings.noInternet.tr);
       return;
     }
-    if(name.isEmpty){
-      emptyName = true;
-      update();
-      return;
-    }else{
-      emptyName = false;
-      update();
-    }
+
     if( email.isEmpty){
       emptyEmail = true;
       update();
@@ -93,7 +81,7 @@ class RegisterController extends BaseController{
     FirebaseFirestore.instance.collection('users').doc(userCredentials.user!.uid)
         .set(
         selectedRole=='TEACHER'?{
-      'username':name,
+      'username':'',
       'surname':'',
       'university_name':'',
       'work_experience':'',
@@ -101,7 +89,7 @@ class RegisterController extends BaseController{
       'role':selectedRole,
     }
     :{
-          'username':name,
+          'username':'',
           'surname':'',
           'university_name':'',
           'email':email,
@@ -109,7 +97,6 @@ class RegisterController extends BaseController{
         }
     );
     Get.find<AuthHolder>().isLoggedIn=true;
-    Get.find<AuthHolder>().name=name;
     Get.find<AuthHolder>().email=email;
     Get.find<AuthHolder>().role=selectedRole;
     Get.find<AuthHolder>().userId=userCredentials.user!.uid;
